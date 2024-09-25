@@ -17,17 +17,32 @@ function displayItems(page) {
     const endIndex = startIndex + itemsPerPage;
     const itemsToDisplay = data.slice(startIndex, endIndex);
 
-    const container = document.getElementById('pagination-container');
-    container.innerHTML = '<ul>' + itemsToDisplay.map(item => `<li>ID: ${item.id} - Name: ${item.name} - Email: ${item.email}</li>`).join('') + '</ul>';
+    const itemsList = document.getElementById('items-list');
+    itemsList.innerHTML = '<ul>' + itemsToDisplay.map(item => `<li>ID: ${item.id} - Name: ${item.name} - Email: ${item.email}</li>`).join('') + '</ul>';
 
     displayPagination(page);
 }
 
 function displayPagination(page) {
     const totalPages = Math.ceil(data.length / itemsPerPage);
-    const paginationContainer = document.createElement('div');
-    paginationContainer.className = 'pagination';
+    const paginationControls = document.getElementById('pagination-controls');
+    paginationControls.innerHTML = '';
 
+    // Previous Button
+    const prevButton = document.createElement('a');
+    prevButton.className = 'prev-next page-link';
+    prevButton.href = '#';
+    prevButton.textContent = 'Previous';
+    prevButton.onclick = function (e) {
+        e.preventDefault();
+        if (currentPage > 1) {
+            currentPage--;
+            displayItems(currentPage);
+        }
+    };
+    paginationControls.appendChild(prevButton);
+
+    // Page Links
     for (let i = 1; i <= totalPages; i++) {
         const pageItem = document.createElement('div');
         pageItem.className = 'page-item' + (i === page ? ' active' : '');
@@ -43,8 +58,20 @@ function displayPagination(page) {
         };
 
         pageItem.appendChild(pageLink);
-        paginationContainer.appendChild(pageItem);
+        paginationControls.appendChild(pageItem);
     }
 
-    document.getElementById('pagination-container').appendChild(paginationContainer);
+    // Next Button
+    const nextButton = document.createElement('a');
+    nextButton.className = 'prev-next page-link';
+    nextButton.href = '#';
+    nextButton.textContent = 'Next';
+    nextButton.onclick = function (e) {
+        e.preventDefault();
+        if (currentPage < totalPages) {
+            currentPage++;
+            displayItems(currentPage);
+        }
+    };
+    paginationControls.appendChild(nextButton);
 }

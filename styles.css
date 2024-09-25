@@ -13,6 +13,24 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+h1 {
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+}
+
+ul li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+ul li:last-child {
+    border-bottom: none; /* Remove border for last item */
+}
+
 .page-item {
     display: inline-block;
     margin: 5px;
@@ -25,6 +43,7 @@ body {
     color: white;
     text-decoration: none;
     border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
 .page-link:hover {
@@ -33,4 +52,13 @@ body {
 
 .active .page-link {
     background-color: #0056b3;
+}
+
+.pagination-controls {
+    margin-top: 20px;
+}
+
+.prev-next {
+    display: inline-block;
+    margin: 5px;
 }
